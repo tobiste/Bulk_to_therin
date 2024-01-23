@@ -1,5 +1,5 @@
-# tectonicr-app
-Therin generator
+# Therin generator
+Calculates the molar units given a bulk compositions (wt. %) and generates the THERIN input for Theriak-Domino
 
 ## Run in browser:
 https://tobiste.shinyapps.io/Bulk_to_therin/
