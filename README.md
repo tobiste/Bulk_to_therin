@@ -1,4 +1,4 @@
-# Therin generator
+# Therin Generator
 Calculates the molar units given a bulk compositions (wt. %) and generates the THERIN input for Theriak-Domino
 
 ## Run in browser:
