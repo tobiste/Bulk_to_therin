@@ -116,7 +116,7 @@ WR_to_TD <- function(x,
     comp <- paste0(comp, "MG(", y["MgO"], ")")
   }
   if(grepl("Mn", system)){
-    comp <- paste0(comp, "Mn(", y["MnO"], ")")
+    comp <- paste0(comp, "MN(", y["MnO"], ")")
   }
   if(grepl("C", system)){
     comp <- paste0(comp, "CA(", y["CaO"], ")")
