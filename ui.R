@@ -1,13 +1,18 @@
 ui <- fluidPage(
 
   # App title ----
-  titlePanel("therin generator"),
+  titlePanel(
+    #"therin generator"),
+  #headerPanel(
+  h1("therin generator",
+  h3("Convert bulk compositions in wt. % to molar compositions - ready for THERIAK DOMINO"))
+  ),
 
   sidebarLayout(
     sidebarPanel(
       fileInput('file1', 'Choose xlsx file',
                 accept = c(".xlsx")),
-      helpText("First row must contain sample label"),
+      helpText("Note: First row must contain sample label.", "Headers must be named as AL2O3, SiO2, etc."),
 
       #checkboxInput("norm_dry", "Normalize to dry conditions", value = FALSE),
 
