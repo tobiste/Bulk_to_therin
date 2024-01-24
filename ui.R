@@ -4,8 +4,10 @@ ui <- fluidPage(
   titlePanel(
     #"therin generator"),
   #headerPanel(
-  h1("therin generator",
-  h5("Convert bulk compositions in wt.% to molar compositions to paste into therin file for THERIAK DOMINO"))
+  h1("THERIN Generator",
+  h4("Converts bulk compositions in wt.% to molar compositions to paste into therin file for THERIAK DOMINO"),
+  h6("T. Stephan (January 2024)")
+  )
   ),
 
   sidebarLayout(
