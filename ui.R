@@ -5,7 +5,7 @@ ui <- fluidPage(
     #"therin generator"),
   #headerPanel(
   h1("therin generator",
-  h3("Convert bulk compositions in wt. % to molar compositions - ready for THERIAK DOMINO"))
+  h5("Convert bulk compositions in wt.% to molar compositions to paste into therin file for THERIAK DOMINO"))
   ),
 
   sidebarLayout(
@@ -26,7 +26,7 @@ ui <- fluidPage(
       textInput("system", "System", value = "MnNCKFMASHT"),
 
       numericInput("O", "Oxygen", value = NA, min = 0, max = 100),
-      helpText('If blank, it puts "?" for the O compositions'),
+      helpText('Leave blank for "?"'),
 
       numericInput("H", "Water", value = 80, min = 0, max = 100),
 
