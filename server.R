@@ -17,13 +17,14 @@ server <- function(input, output) {
             )
           }
         )
-      data <- data.frame(Sample = data$Sample, data_corr)
+      data <- data.frame(Sample = data$Sample, data_corr) |>
+        mutate(FeO = ifelse(input$iron, 0, FeO), Fe2O3 = ifelse(input$iron, Fe2O3, 0))  # only consider total iron
       # if(input$norm_dry) data <- norm_dry(data)
       return(data)
     }
   })
 
-  output$file2 <- renderTable({
+  output$file2 <- renderDataTable({
     load_file()
   })
 
@@ -50,10 +51,11 @@ server <- function(input, output) {
     if (!is.null(data)) {
       # colnames <- colnames(data)[, 2:ncol(data)]
       sample <- data |>
-        dplyr::select("SiO2", "Al2O3", "Fe2O3", "CaO", "MgO", "Na2O", "K2O", "Cr2O3", "TiO2", "MnO", "P2O5", "SrO", "BaO") |>
+        dplyr::mutate(FeO = FeO + Fe2O3) |>  # only consider total iron
+        dplyr::select("SiO2", "Al2O3", "FeO", "CaO", "MgO", "Na2O", "K2O", "Cr2O3", "TiO2", "MnO", "P2O5", "SrO", "BaO") |>
         t() |>
         c()
-      names(sample) <- c("SiO2", "Al2O3", "Fe2O3", "CaO", "MgO", "Na2O", "K2O", "Cr2O3", "TiO2", "MnO", "P2O5", "SrO", "BaO")
+      names(sample) <- c("SiO2", "Al2O3", "FeO", "CaO", "MgO", "Na2O", "K2O", "Cr2O3", "TiO2", "MnO", "P2O5", "SrO", "BaO")
 
       O <- input$O
       if (is.na(O)) {
@@ -66,7 +68,7 @@ server <- function(input, output) {
     }
   })
 
-  output$therin <- renderPrint({
+  output$therin <- renderText({
     therin_gen()
   })
 }
