@@ -17,9 +17,14 @@ server <- function(input, output) {
             )
           }
         )
-      data <- data.frame(Sample = data$Sample, data_corr) |>
-        mutate(FeO = ifelse(input$iron, 0, FeO), Fe2O3 = ifelse(input$iron, Fe2O3, 0))  # only consider total iron
-      # if(input$norm_dry) data <- norm_dry(data)
+      data <- data.frame(Sample = data$Sample, data_corr)
+      if(is.null(data$FeO)){
+        data <- mutate(data, FeO = 0)
+      }
+      if(is.null(data$Fe2O3)){
+        data <- mutate(data, Fe2O3 = 0)
+      }
+          # if(input$norm_dry) data <- norm_dry(data)
       return(data)
     }
   })

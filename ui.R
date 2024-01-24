@@ -14,14 +14,15 @@ ui <- fluidPage(
     sidebarPanel(
       fileInput('file1', 'Choose xlsx file',
                 accept = c(".xlsx")),
-      helpText("Note: First row must contain sample label.", "Headers must be named as AL2O3, SiO2, etc."),
+      helpText("First row must contain sample label."),
+      helpText("Headers must be named as Al2O3, SiO2, etc."),
+      helpText("Note: Only able to consider total Fe compositions."),
 
       #checkboxInput("norm_dry", "Normalize to dry conditions", value = FALSE),
 
       numericInput("DL", "Detection limit factor", value = 2/3),
 
-      checkboxInput("iron", "Total iron = Fe2O3", value = TRUE),
-      helpText("Note: so far only able to consider total Fe compositions"),
+      # checkboxInput("iron", "Total iron = Fe2O3", value = TRUE),
 
       textInput("sample", "Sample", value = "Enter sample name..."),
 
