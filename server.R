@@ -50,7 +50,7 @@ server <- function(input, output) {
     }
   })
 
-  therin_gen <- reactive({
+  therin_gen2 <- reactive({
     data <- sample_select()
 
     if (!is.null(data)) {
@@ -73,7 +73,39 @@ server <- function(input, output) {
     }
   })
 
+  therin_gen <- reactive({
+    all_data <- load_file()
+    if (!is.null(all_data)) {
+      text <- character()
+      for(i in all_data$Sample){
+        data <- all_data |> filter(Sample == i)
+      # colnames <- colnames(data)[, 2:ncol(data)]
+      sample <- data |>
+        dplyr::mutate(FeO = FeO + Fe2O3) |>  # only consider total iron
+        dplyr::select("SiO2", "Al2O3", "FeO", "CaO", "MgO", "Na2O", "K2O", "Cr2O3", "TiO2", "MnO", "P2O5", "SrO", "BaO") |>
+        t() |>
+        c()
+      names(sample) <- c("SiO2", "Al2O3", "FeO", "CaO", "MgO", "Na2O", "K2O", "Cr2O3", "TiO2", "MnO", "P2O5", "SrO", "BaO")
+
+      O <- input$O
+      if (is.na(O)) {
+        O <- "?"
+      }
+
+      text <- paste(text, WR_to_TD(sample, system = input$system, H = input$H, O = O, round = input$round, cmt = i), "\n")
+      }
+      text
+    } else {
+      return(NULL)
+    }
+  })
+
+
   output$therin <- renderText({
-    therin_gen()
+    if( input$sample %in% c("Enter sample name...", "") ){
+      therin_gen()
+    } else {
+      therin_gen2()
+    }
   })
 }
