@@ -10,7 +10,7 @@ without installing:
 shiny::runGitHub("Bulk_to_therin", "tobiste")
 ```
 
-or download, unzip the project, and run
+or download, unzip the project, and run:
 ```
 shiny::runApp()
 ```
