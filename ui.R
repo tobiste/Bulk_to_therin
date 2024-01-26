@@ -69,11 +69,12 @@ ui <-
                sidebarLayout(
                  sidebarPanel(
                    fileInput("file2", "Choose table file"),
-                   textInput("mineral", "Mineral", value = "Enter mineral...")
+                   textInput("mineral", "Mineral", value = "Enter mineral..."),
+                   checkboxInput("oneside", "Occurs on both sides?", value = FALSE)
                  ),
                mainPanel(
                  h3("TABLE file"),
-                 tableOutput("therin")
+                 tableOutput("table_filt")
                )
                )
              )

@@ -1,4 +1,6 @@
 server <- function(input, output) {
+  # THERIN generator ------------------------------------------------
+
   load_file <- reactive({
     inFile <- input$file1
 
@@ -110,38 +112,31 @@ server <- function(input, output) {
   })
 
 
+
+  # GUZZLER table filter ------------------------------------------------
+
   load_table <- reactive({
-    inFile <- input$file2
-
-    read.delim(inFile$datapath, sep = ":", header  = F) |>
-      tidyr::separate(V2, into = c("IN", "OUT"), "=", remove = TRUE) |>
-      dplyr::select(-V1)
-  })
-
-
-  output$table <- reactive({
-    load_table()
-  })
-
-  table_filter <- reactive({
-    tbl <- output$file2
-    min <- input$mineral
-    dplyr::filter(tbl,
-                  grepl(min, IN) | grepl(min, OUT)
-    ) |>
-      dplyr::filter(!(grepl(min, IN) & grepl(min, OUT)))
+    inFile2 <- input$file2
+    if (is.null(inFile2)) {
+      return(NULL)
+    } else {
+      read.delim(inFile2$datapath, sep = ":", header  = F)  |>
+        tidyr::separate(V2, into = c("IN", "OUT"), "=", remove = TRUE) |>
+        dplyr::rename(Line = V1)
+    }
   })
 
   output$table_filt <- renderTable({
-    tbl <- output$file2
+    tbl <- load_table()
     min <- input$mineral
     if(min %in% c("", "Enter mineral...")){
       tbl
     } else {
-    dplyr::filter(tbl,
-                  grepl(min, IN) | grepl(min, OUT)
-    ) |>
-      dplyr::filter(!(grepl(min, IN) & grepl(min, OUT)))
+      if(input$oneside) tbl %>% filter(stringr::str_detect(IN, min) & stringr::str_detect(OUT, min))
+      else tbl %>%
+        filter(
+          (stringr::str_detect(IN, min) & !stringr::str_detect(OUT, min)) |
+            (stringr::str_detect(OUT, min) & !stringr::str_detect(IN, min)))
     }
   })
 
