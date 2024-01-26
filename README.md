@@ -1,10 +1,7 @@
 # Helper functions to handle THERIAK DOMINO files
 
-## Therin Generator
-Calculates the molar units given a bulk compositions (wt. %) and generates the THERIN input for Theriak-Domino
-
-## GUZZLER table filter 
-Extracts minerals from the GUZZLER reaction table
+- *Therin Generator*: Calculates the molar units given a bulk compositions (wt. %) and generates the THERIN input for Theriak-Domino
+- *GUZZLER table filter*: Extracts minerals from the GUZZLER reaction table
 
 ## Run in browser:
 https://tobiste.shinyapps.io/Bulk_to_therin/
