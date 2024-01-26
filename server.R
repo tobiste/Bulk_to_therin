@@ -108,4 +108,42 @@ server <- function(input, output) {
       therin_gen2()
     }
   })
+
+
+  load_table <- reactive({
+    inFile <- input$file2
+
+    read.delim(inFile$datapath, sep = ":", header  = F) |>
+      tidyr::separate(V2, into = c("IN", "OUT"), "=", remove = TRUE) |>
+      dplyr::select(-V1)
+  })
+
+
+  output$table <- reactive({
+    load_table()
+  })
+
+  table_filter <- reactive({
+    tbl <- output$file2
+    min <- input$mineral
+    dplyr::filter(tbl,
+                  grepl(min, IN) | grepl(min, OUT)
+    ) |>
+      dplyr::filter(!(grepl(min, IN) & grepl(min, OUT)))
+  })
+
+  output$table_filt <- renderTable({
+    tbl <- output$file2
+    min <- input$mineral
+    if(min %in% c("", "Enter mineral...")){
+      tbl
+    } else {
+    dplyr::filter(tbl,
+                  grepl(min, IN) | grepl(min, OUT)
+    ) |>
+      dplyr::filter(!(grepl(min, IN) & grepl(min, OUT)))
+    }
+  })
+
+
 }
