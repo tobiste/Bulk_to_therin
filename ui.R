@@ -1,18 +1,16 @@
 ui <-
-  navbarPage("TD helpers", collapsible = TRUE, inverse = TRUE,
+  navbarPage("TD helpers", footer = "T. Stephan (January 2024)",
 
     tabPanel(
       "THERIN Generator",
       fluidPage(
 
-        # App title ----
         titlePanel(
-          # "therin generator"),
-          # headerPanel(
           h3(
             "THERIN Generator",
-            h4("Converts bulk compositions in wt.% to molar compositions that can be pasted into therin file for THERIAK DOMINO"),
-            h6("T. Stephan (January 2024)")
+            h4(
+              "Converts bulk compositions in wt.% to molar compositions that can be pasted into therin file for THERIAK DOMINO"
+              )
           )
         ),
         sidebarLayout(
@@ -58,12 +56,9 @@ ui <-
     tabPanel("GUZZLER Filter",
              fluidPage(
                titlePanel(
-                 # "therin generator"),
-                 # headerPanel(
                  h3(
                    "GUZZLER table filter",
-                   h4("Extracts a mineral from the GUZZLER reaction table"),
-                   h6("T. Stephan (January 2024)")
+                   h4("Extracts minerals from the GUZZLER reaction table")
                  )
                ),
                sidebarLayout(
